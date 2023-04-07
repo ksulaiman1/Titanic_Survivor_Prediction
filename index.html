@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS</title>
+    <style>
+        table,
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+      </style>
+</head>
+<body>
+    
+   
+        <h1>Speedy Speech Acoustic Model</h1>
+        <h3>Uses universal Vocoder Model</h3>
+        <p>Training Dataset Size - 17 hours and 57 minutes</p>
+        <a href="https://tensorboard.dev/experiment/Wr51HmkYTny0IgKJgdrKvg/#scalars"><p>Tensorboard</p></a>
+        <p>Frequency - 22.05kHz</p>
+
+        <table id="myData">
+             <tr>
+                <th>ID</th>
+                <th>Sentence</th>
+                <th>Audio</th>
+              </tr>
+        </table>
+        <script>
+            fetch('sentences.json')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    appendData(data);
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+            function appendData(data) {
+                var mainContainer = document.getElementById("myData");
+                for (var i = 0; i < data.length; i++) {
+                    var tr = document.createElement("tr");
+                    tr.innerHTML = '<td>' + data[i].id + '</td> <td>' + data[i].sentence + '</td>' + '<td><audio controls="" preload="none"><source src="samples/speedy_speech/speedy_speech_' + data[i].id + '.wav"></audio></td>'
+                    mainContainer.appendChild(tr);
+                }
+            }
+        </script>
+
+    
+
+    <script src="js/custom.js"></script>
+</body>
+</html>
